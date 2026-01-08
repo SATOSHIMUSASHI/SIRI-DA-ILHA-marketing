@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Siri da Ilha | Gerador de Marketing</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f6f8;
+      padding: 30px;
+    }
+    .container {
+      max-width: 800px;
+      margin: auto;
+      background: #ffffff;
+      padding: 25px;
+      border-radius: 10px;
+    }
+    h1 {
+      color: #0d3b66;
+      margin-bottom: 10px;
+    }
+    label {
+      font-weight: bold;
+      margin-top: 15px;
+      display: block;
+    }
+    select, textarea, input, button {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+    }
+    textarea {
+      resize: vertical;
+    }
+    button {
+      background: #0d3b66;
+      color: #fff;
+      border: none;
+      margin-top: 25px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+    img {
+      max-width: 100%;
+      margin-top: 15px;
+      border-radius: 8px;
+      display: none;
+    }
+    .hint {
+      font-size: 13px;
+      color: #555;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <h1>📸 Siri da Ilha — Gerador de Conteúdo</h1>
+  <p class="hint">Gere edição + texto profissional e finalize no Google AI Studio</p>
+
+  <label>Foto</label>
+  <input type="file" accept="image/*" onchange="previewImage()">
+  <img id="preview">
+
+  <label>Tipo da foto</label>
+  <select id="tipoFoto">
+    <option>Prato (food porn)</option>
+    <option>Ambiente e vista</option>
+  </select>
+
+  <label>Objetivo da postagem</label>
+  <select id="objetivo">
+    <option>Atrair novos clientes</option>
+    <option>Divulgar prato novo</option>
+    <option>Fidelização da marca</option>
+  </select>
+
+  <label>Rede social</label>
+  <select id="rede">
+    <option>Instagram</option>
+    <option>Facebook</option>
+    <option>WhatsApp</option>
+  </select>
+
+  <label>Tipo de legenda</label>
+  <select id="legenda">
+    <option>Legenda curta</option>
+    <option>Legenda média</option>
+    <option>Legenda com CTA</option>
+  </select>
+
+  <label>Tom de voz</label>
+  <select id="tom">
+    <option>Descontraído</option>
+    <option>Sofisticado</option>
+    <option>Familiar</option>
+    <option>Direto e simples</option>
+  </select>
+
+  <label>Descrição livre</label>
+  <textarea id="descricao" rows="4"
+    placeholder="Ex: prato do dia, peixe fresco, destacar cremosidade, etc."></textarea>
+
+  <button onclick="gerarPrompt()">Gerar prompt e abrir AI Studio</button>
+</div>
+
+<script>
+function previewImage() {
+  const file = document.querySelector('input[type=file]').files[0];
+  const preview = document.getElementById("preview");
+  if (file) {
+    preview.src = URL.createObjectURL(file);
+    preview.style.display = "block";
+  }
+}
+
+function gerarPrompt() {
+  const tipoFoto = document.getElementById("tipoFoto").value;
+  const objetivo = document.getElementById("objetivo").value;
+  const rede = document.getElementById("rede").value;
+  const legenda = document.getElementById("legenda").value;
+  const tom = document.getElementById("tom").value;
+  const descricao = document.getElementById("descricao").value;
+
+  const prompt = `
+Você é um assistente de marketing digital especializado em restaurantes,
+atuando exclusivamente para o restaurante Siri da Ilha.
+
+Especialidade: frutos do mar
+Localização: à beira da Baía de Guanabara
+Vista: horizontal, na altura do mar, sempre vista através das janelas
+Ambiente: acolhedor, visitativo e confortável
+
+TIPO DE IMAGEM: ${tipoFoto}
+OBJETIVO: ${objetivo}
+REDE: ${rede}
+LEGENDA: ${legenda}
+TOM DE VOZ: ${tom}
+
+OBSERVAÇÕES:
+${descricao}
+`;
+
+  navigator.clipboard.writeText(prompt);
+  alert("Prompt copiado! Cole no Google AI Studio e anexe a imagem.");
+  window.open("https://aistudio.google.com", "_blank");
+}
+</script>
+
+</body>
+</html>
